@@ -32,14 +32,14 @@ module.exports.supportersSignUp = (event, context, cb) => {
     });
   };
 
-  const createNewUser = (formDefinition) => new Promise((resolve, reject) => {
+  const createNewUser = formDefinition => new Promise((resolve, reject) => {
     /* map field ids to refs */
     const fieldMapping = formDefinition.fields.reduce((mapping, field) => (
       Object.assign({ [field.id]: field.ref }, mapping)
     ), {});
 
     /* map answers to refs */
-    const Item = {};
+    const Item = { created: (new Date()).toString() };
     event.body.answers.forEach((answer) => {
       const ref = fieldMapping[answer.field_id];
       if (ref) Item[ref] = answer.value;
